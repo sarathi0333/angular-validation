@@ -1,15 +1,32 @@
 <!Doctype html>
 <html>
     <head>
-        <title>Form Validation<title>
+        <title>Form Validation</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
     </head>
-    <body ng-app="app">
-        <div ng-controller="validateCtrl">
-
-        </div>
-    
+    <body ng-app="app" ng-controller="appCtrl">
+        <div ng-controller="validateCtrl" class="container">
+           <form name="details"ng-submit="submitForm()" novalidate>
+               <label>Name:</label>
+               <div class="form-group" ng-class="{ 'has-error' : details.name.$invalid && (details.name.$dirty || submitted)}">
+               <input type="text" name="name" class="form-control" ng-model="user.name" ng-required="true" placeholder="Enter your name" ng-pattern="/^[a-zA-Z]{3,15}$/" ng-maxlength="15">
+               <p class="help-block" ng-show="details.name.$error.required && (details.name.$dirty || submitted)">* Please enter your name</p>
+               </div><label>Email:</label>
+               <div class="form-group" ng-class="{ 'has-error' : details.email.$invalid && (details.email.$dirty || submitted)}">
+               <input type="email" name="email" class="form-control" ng-model="user.email" ng-required="true" placeholder="Enter your email">
+               <p class="help-block" ng-show="details.email.$error.required && (details.email.$dirty || submitted)">* Please enter your email</p>
+               <p ng-show="details.email.$error.email && (details.email.$dirty || submitted)" class="help-block"> * Enter a valid email.</p>
+               </div>
+               <label>Phone Number:</label>
+               <div class="form-group" ng-class="{ 'has-error' : details.phone.$invalid && (details.phone.$dirty || submitted)}">
+               <input type="text" name="phone" class="form-control" ng-model="user.phone" ng-required="true" placeholder="Enter your phone number" ng-pattern="/^[789]\d{9}$/" ng-maxlength="10">
+               <p class="help-block" ng-show="details.phone.$error.required && (details.phone.$dirty || submitted)">* Please enter your phonenumber</p>
+               </div>
+               <button type="submit" class="btn btn-primary" >Submit</button>
+           </form>
+        </div>    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
-    <script src="./app/app.js"></script>
-    <script src="./app/controller/validation.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/validation.js"></script>
     </body>
 </html>
